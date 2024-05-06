@@ -1,7 +1,7 @@
 {
   "name": "waar-dit",
   "displayName": "Waar is dit?",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Waar bevindt zich dit postcode adres?",
   "author": "den",
   "packageManager": "npm@9.8.1",

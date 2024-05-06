@@ -1,5 +1,14 @@
-import {postalCodeRegex} from "./const";
-import {sendToBackground} from "@plasmohq/messaging"
+import { postalCodeRegex } from "./const";
+import { sendToBackground } from "@plasmohq/messaging";
+
+// Function to create a popup for postal codes
+function createPopup() {
+  const popup = document.createElement('div');
+  popup.style.cssText = 'padding: 10px; display: none; position: absolute; z-index: 1000; border: 1px solid black; background-color: white; width: 350px; height: 350px;';
+  document.body.appendChild(popup); // Append the popup to the body
+
+  return popup;
+}
 
 // Function to create a wrapper around found postal codes
 function createWrapper(postCode: string) {
@@ -7,29 +16,48 @@ function createWrapper(postCode: string) {
   wrapper.style.cssText = 'position: relative; display: inline-block; outline: 2px solid transparent;';
   const contentSpan = document.createElement('span');
   contentSpan.textContent = postCode;
-
-  const popup = document.createElement('div');
-  popup.style.cssText = 'padding: 10px; display: none; position: absolute; z-index: 1000; top: 20px; left: -2px; width: 350px; height: 350px; border: 1px solid black; background-color: white;z-index:9999;';
+  let popup = null; // Popup is not created initially
 
   wrapper.onmouseenter = () => {
     wrapper.style.outlineColor = 'orange';
     wrapper.style.cursor = 'pointer';
   };
-  wrapper.onmouseleave = () => {
-    wrapper.style.outlineColor = 'transparent';
-    // popup.style.display = 'none';  // Hide the popup when the mouse leaves the wrapper
+  wrapper.onmouseleave = (e) => {
+    if (popup && e.relatedTarget !== popup && !popup.contains(e.relatedTarget)) {
+      wrapper.style.outlineColor = 'transparent';
+      popup.style.display = 'none';
+    }
   };
+
+  // Additional logic to handle mouse leaving the popup
+  const handlePopupMouseLeave = (e) => {
+    if (!wrapper.contains(e.relatedTarget) && e.relatedTarget !== wrapper) {
+      popup.style.display = 'none';
+      wrapper.style.outlineColor = 'transparent';
+    }
+  };
+
   wrapper.onclick = async (event) => {
-    // Prevent the popup from showing multiple times and overlapping
+    if (!popup) {
+      popup = createPopup();
+      // Attach mouse leave event listener to popup
+      popup.addEventListener('mouseleave', handlePopupMouseLeave);
+    }
+
     if (popup.style.display === 'none' || popup.style.display === '') {
+      const rect = wrapper.getBoundingClientRect();
+      popup.style.left = `${rect.left}px`;
+      popup.style.top = `${rect.bottom + window.scrollY}px`;
       popup.style.display = 'block';
-      popup.innerHTML = '<div style="font-size: 10px;"></div>'
+
+      popup.innerHTML = '<div>Loading data...</div>'; // Default loading message
       const resp = await sendToBackground({
         name: "get-map-url",
         body: {
           postCode: postCode
         }
       });
+
       if (!resp) {
         popup.innerHTML = '<span>Not found</span>';
       } else {
@@ -38,14 +66,12 @@ function createWrapper(postCode: string) {
     } else {
       popup.style.display = 'none';
     }
-    event.stopPropagation();  // Prevent further propagation of the current event in the capturing and bubbling phases
+    event.stopPropagation(); // Prevent further propagation of the current event in the capturing and bubbling phases
   };
 
   wrapper.appendChild(contentSpan);
-  wrapper.appendChild(popup);  // Append the popup to the wrapper
   return wrapper;
 }
-
 
 // Function to walk the DOM and process text nodes
 function walkTheDOM(node, func) {
@@ -87,5 +113,3 @@ export function initContentScript() {
     walkTheDOM(document.body, wrapPostalCodes);
   });
 }
-
-

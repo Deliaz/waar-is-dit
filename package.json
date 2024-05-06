@@ -1,8 +1,8 @@
 {
   "name": "waar-dit",
-  "displayName": "Waar dit",
+  "displayName": "Waar is dit?",
   "version": "0.0.1",
-  "description": "Waar is dit?",
+  "description": "Waar bevindt zich dit postcode adres?",
   "author": "den",
   "packageManager": "npm@9.8.1",
   "scripts": {
@@ -11,22 +11,23 @@
     "package": "plasmo package"
   },
   "dependencies": {
-    "plasmo": "0.67.4",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "@plasmohq/messaging": "^0.6.2",
+    "plasmo": "0.86.2",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
   },
   "devDependencies": {
-    "@types/chrome": "0.0.210",
-    "@types/node": "18.11.18",
-    "@types/react": "18.0.27",
-    "@types/react-dom": "18.0.10",
-    "prettier": "2.8.3",
-    "typescript": "4.9.4",
-    "@plasmohq/prettier-plugin-sort-imports": "4.0.1"
+    "@plasmohq/prettier-plugin-sort-imports": "4.0.1",
+    "@types/chrome": "0.0.267",
+    "@types/node": "20.12.8",
+    "@types/react": "18.3.1",
+    "@types/react-dom": "18.3.0",
+    "prettier": "^3.2.5",
+    "typescript": "5.4.5"
   },
   "manifest": {
     "host_permissions": [
-      "https://*/*"
+      "https://api.goabout.com/*"
     ]
   }
 }

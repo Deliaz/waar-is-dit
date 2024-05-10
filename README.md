@@ -1,10 +1,10 @@
 # Waar is dit? 
 
-[Chrome Extension](https://chromewebstore.google.com/detail/waar-is-dit/efnhmojaioaemeppgnglnombccnlfagf)
+>>> [Install in Chrome](https://chromewebstore.google.com/detail/waar-is-dit/efnhmojaioaemeppgnglnombccnlfagf)
 
 This is a [Plasmo extension](https://docs.plasmo.com/) project bootstrapped with [`plasmo init`](https://www.npmjs.com/package/plasmo).
 
-## Getting Started
+### Getting Started
 
 First, run the development server:
 
@@ -20,7 +20,7 @@ You can start editing the popup by modifying `popup.tsx`. It should auto-update 
 
 For further guidance, [visit our Documentation](https://docs.plasmo.com/)
 
-## Making production build
+### Making production build
 
 Run the following:
 

@@ -1,6 +1,6 @@
 # Waar is dit? 
 
->>> [Install in Chrome](https://chromewebstore.google.com/detail/waar-is-dit/efnhmojaioaemeppgnglnombccnlfagf)
+## [Install in Chrome](https://chromewebstore.google.com/detail/waar-is-dit/efnhmojaioaemeppgnglnombccnlfagf)
 
 This is a [Plasmo extension](https://docs.plasmo.com/) project bootstrapped with [`plasmo init`](https://www.npmjs.com/package/plasmo).
 

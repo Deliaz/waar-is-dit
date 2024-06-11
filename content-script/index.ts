@@ -1,5 +1,5 @@
-import { postalCodeRegex } from "./const";
-import { sendToBackground } from "@plasmohq/messaging";
+import {postalCodeRegex} from "./const";
+import {sendToBackground} from "@plasmohq/messaging";
 
 // Function to create a popup for postal codes
 function createPopup() {
@@ -76,12 +76,17 @@ function createWrapper(postCode: string) {
 // Function to walk the DOM and process text nodes
 function walkTheDOM(node, func) {
   node.childNodes.forEach(child => {
-    if (child.nodeType === 3) { // Node.TEXT_NODE
-      func(child);
-    } else if (child.nodeType === 1) { // Element
-      walkTheDOM(child, func);
+      if (child.nodeType === 3) { // Node.TEXT_NODE
+        if (node.tagName === 'SCRIPT' || node.tagName === 'STYLE' || child.parentElement.tagName === 'SCRIPT' || child.parentElement.tagName === 'STYLE') {
+          return; // Skip script and style tags
+        }
+        func(child);
+      } else if (child.nodeType === 1) { // Element
+        walkTheDOM(child, func);
+      }
     }
-  });
+  )
+  ;
 }
 
 // Function to wrap postal codes within text nodes

@@ -1,4 +1,4 @@
-import {initContentScript} from './content-script/index';
+import {initContentScript} from './content-script';
 
 export const config = {
   matches: ["<all_urls>"],

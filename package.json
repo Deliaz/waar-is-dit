@@ -1,7 +1,7 @@
 {
   "name": "waar-dit",
   "displayName": "Waar is dit?",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Waar bevindt zich dit postcode adres?",
   "author": "den",
   "packageManager": "npm@9.8.1",
@@ -28,6 +28,17 @@
   "manifest": {
     "host_permissions": [
       "https://api.goabout.com/*"
+    ],
+    "web_accessible_resources": [
+      {
+        "resources": [
+          "assets/*",
+          "*.map"
+        ],
+        "matches": [
+          "<all_urls>"
+        ]
+      }
     ]
   }
 }
